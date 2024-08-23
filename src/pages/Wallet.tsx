@@ -5,6 +5,9 @@ import { mnemonicToSeedSync } from 'bip39'
 import { HDKey } from "micro-ed25519-hdkey";
 import { Keypair } from "@solana/web3.js";
 import { useNavigate } from "react-router-dom";
+import { Box, Stack, TextField, Typography } from "@mui/material";
+import Paper from '@mui/material/Paper';
+import { grey } from "@mui/material/colors";
 
 window.Buffer = window.Buffer || Buffer;
 
@@ -59,8 +62,28 @@ function Wallet() {
 
 
     return (
-        <>
-            <h1>This is mnemonic {mnemonic}</h1>
+        <Stack spacing={2} sx={{
+            width: '100vw',
+            padding:{
+              xs: 3
+            }
+          }}
+          >
+            <Box boxShadow={10}  sx={{
+                padding: 3
+            }}>
+                <Typography variant="h3" sx={{
+            fontSize:{
+              xs: 50
+            }
+           }} component='pre'>Your mnemonic is</Typography>
+                <Paper elevation={0}  sx={{
+                    border: "white"
+                }}>
+                    <Typography variant="h5">{mnemonic}</Typography> 
+                </Paper>
+            </Box>
+            
             <div style={{
                 border: "2px solid red"
             }}>
@@ -92,7 +115,7 @@ function Wallet() {
                     }}>Generate Sol wallet</button>
                 </div>
             </div>
-        </>
+            </Stack>
     )
 }
 export default Wallet
