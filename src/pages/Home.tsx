@@ -1,20 +1,24 @@
 import { generateMnemonic } from 'bip39'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 function Home() {
-  const [mn, setMn] = useState<string>();
+  const [mn, setMn] = useState<string>()
+  const navigate = useNavigate()
   const getMn = () => {
     const mnemonic = generateMnemonic()
     localStorage.setItem("mnemonic", mnemonic)
     console.log("mnemonic set")
+    setMn(mnemonic)
   }
 
 
   return (
     <>
-      <button type="button" onClick={getMn}>Get mnemonic</button>
       <h1>MN {mn}</h1>
+      <button type="button" onClick={getMn}>Get mnemonic</button>
+      {mn && <button onClick={()=> navigate("/wallet")}>Get wallets</button>}
     </>
   )
 }

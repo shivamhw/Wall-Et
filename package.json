@@ -1,20 +1,26 @@
 {
   "name": "wallet-gen",
+  "homepage": "https://shivamhw.github.io/wallet",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@solana/web3.js": "^1.95.3",
     "bip39": "^3.1.0",
     "buffer": "^6.0.3",
     "ethers": "^6.13.2",
+    "micro-ed25519-hdkey": "^0.1.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "web3": "^4.12.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -24,6 +30,7 @@
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
+    "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "react-router-dom": "^6.26.1",
     "typescript": "^5.5.3",
