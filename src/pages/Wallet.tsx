@@ -5,9 +5,9 @@ import { mnemonicToSeedSync } from 'bip39'
 import { HDKey } from "micro-ed25519-hdkey";
 import { Keypair } from "@solana/web3.js";
 import { useNavigate } from "react-router-dom";
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Paper from '@mui/material/Paper';
-import { grey } from "@mui/material/colors";
+
 
 window.Buffer = window.Buffer || Buffer;
 
