@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <>
-      <h1>MN {mn}</h1>
+      <h1>This is home page {mn}</h1>
       <button type="button" onClick={getMn}>Get mnemonic</button>
       {mn && <button onClick={()=> navigate("/wallet")}>Get wallets</button>}
     </>
