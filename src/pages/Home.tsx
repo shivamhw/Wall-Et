@@ -1,7 +1,7 @@
 import { generateMnemonic } from 'bip39'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { Button, Typography } from '@mui/material';
 import Mnemonic from '../components/Mnemonic';
@@ -42,11 +42,6 @@ function Home() {
           </Box>
         </Box>
       </Stack>
-    // {/* </Box> */}
-      
-      
-    //   {mn && <button onClick={()=> navigate("/wallet")}>Get wallets</button>}
-    // </>
   )
 }
 

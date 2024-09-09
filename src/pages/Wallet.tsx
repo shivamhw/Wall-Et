@@ -1,51 +1,26 @@
-import { useEffect, useState } from "react"
-import { HDNodeWallet } from 'ethers'
+import { useEffect, useState } from "react";
 import { Buffer } from 'buffer';
 import { mnemonicToSeedSync } from 'bip39'
-import { HDKey } from "micro-ed25519-hdkey";
-import { Keypair } from "@solana/web3.js";
-import { useNavigate } from "react-router-dom";
-import { Box, Stack, Typography } from "@mui/material";
-import Paper from '@mui/material/Paper';
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { getEthWallet } from "../web3/eth";
+import { getSolWallet } from "../web3/sol";
+import WalletCard from "../components/WalletCard";
 
 
 window.Buffer = window.Buffer || Buffer;
 
-interface wallet {
+export interface wallet {
     privateKey: string
     publicKey: string
     address: string
 }
 
-function getEthWallet(seed: Buffer, index: number): wallet {
-    console.log(`generating eth wallet for ${index}`)
-    const path = `m/44'/60'/0'/${index}'/0'`
-    const newWallet = HDNodeWallet.fromSeed(seed).derivePath(path)
-    return {
-        privateKey: newWallet.privateKey,
-        publicKey: newWallet.publicKey,
-        address: newWallet.address
-    }
-}
-
-function getSolWallet(seed: Buffer, index: number): wallet {
-    console.log(`generating sol wallet for ${index}`)
-    const path = `m/44'/501'/${index}'/0'`
-    const keypair = Keypair.fromSeed(HDKey.fromMasterSeed(seed).derive(path).privateKey)
-    return {
-        privateKey: keypair.secretKey.toString(),
-        publicKey: keypair.publicKey.toString(),
-        address: keypair.publicKey.toBase58()
-    }
-
-}
 
 function Wallet() {
     const [mnemonic, setMnemonic] = useState<string>()
     const [seed, setSeed] = useState<Buffer>()
     const [ethWall, setEthWall] = useState<wallet[]>([])
     const [solWall, setSolWall] = useState<wallet[]>([])
-    const navigate = useNavigate()
 
     const loadMnemonic = () => {
         const val = localStorage.getItem('mnemonic')
@@ -59,63 +34,48 @@ function Wallet() {
     }
     useEffect(loadMnemonic, [])
 
-
-
     return (
         <Stack spacing={2} sx={{
             width: '100vw',
-            padding:{
-              xs: 3
+            padding: {
+                xs: 3
             }
-          }}
-          >
-            <Box boxShadow={10}  sx={{
-                padding: 3
+        }}
+        >
+            <Box display='flex' gap={2} flexDirection='column' sx={{
+                padding: 3,
+                boxShadow: '0px 4px 12px #5555',
+                borderRadius: '16px'
             }}>
-                <Typography variant="h3" sx={{
-            fontSize:{
-              xs: 50
-            }
-           }} component='pre'>Your mnemonic is</Typography>
-                <Paper elevation={0}  sx={{
-                    border: "white"
-                }}>
-                    <Typography variant="h5">{mnemonic}</Typography> 
-                </Paper>
-            </Box>
-            
-            <div style={{
-                border: "2px solid red"
-            }}>
-                <div>
-                    <h3>Eth Wallet</h3>
-                    {
-                        ethWall.map((wall) => {
-                            return <div>{wall.address} <button onClick={() => {
-                                navigate("/account?id="+wall.address+"&chain=eth")
-                            }}>get bal</button></div>
-                        })
+                <Typography variant="h2" sx={{
+                    fontSize: {
+                        xs: 50
                     }
-                    <button onClick={() => {
+                }} >Your mnemonic is</Typography>
+                <Typography sx={{
+                    fontFamily: "monospace"
+                }} variant="h5">{mnemonic}</Typography>
+                <Box display='flex' justifyContent='center' alignItems='center' gap={3}>
+                    <Button variant="contained" onClick={() => {
                         setEthWall((prev) => [...prev, getEthWallet(seed!, prev.length)])
-                    }}>Generate Eth wallet</button>
-                </div>
-                <div>
-                    <h3>Sol Wallet</h3>
-                    {
-                        solWall.map((wall) => {
-                            return <div>{wall.address} <button onClick={() => {
-                                navigate("/account?id="+wall.address+"&chain=sol")
-                            }}>get bal</button></div>
-                        })
-                    }
-                    <button onClick={() => {
-                        setSolWall((prev) => [...prev, getSolWallet(seed!, prev.length)])
+                    }} >Get ETH wallet</Button>
 
-                    }}>Generate Sol wallet</button>
-                </div>
-            </div>
-            </Stack>
+                    <Button variant="contained" color="secondary" onClick={() => {
+                        setSolWall((prev) => [...prev, getSolWallet(seed!, prev.length)])
+                    }} >Get Sol wallet</Button>
+                </Box>  
+            </Box>
+            {
+                ethWall.map((wall) => {
+                    return <WalletCard key={wall.address} chain="eth" wallet={wall}></WalletCard>
+                })
+            }
+            {
+                solWall.map((wall) => {
+                    return <WalletCard key={wall.address} chain="sol" wallet={wall}></WalletCard>
+                })
+            }
+        </Stack>
     )
 }
 export default Wallet
