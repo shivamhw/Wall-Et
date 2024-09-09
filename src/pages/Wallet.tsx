@@ -5,6 +5,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { getEthWallet } from "../web3/eth";
 import { getSolWallet } from "../web3/sol";
 import WalletCard from "../components/WalletCard";
+import { useNavigate } from "react-router-dom";
 
 
 window.Buffer = window.Buffer || Buffer;
@@ -21,7 +22,7 @@ function Wallet() {
     const [seed, setSeed] = useState<Buffer>()
     const [ethWall, setEthWall] = useState<wallet[]>([])
     const [solWall, setSolWall] = useState<wallet[]>([])
-
+    const navigate = useNavigate()
     const loadMnemonic = () => {
         const val = localStorage.getItem('mnemonic')
         if (val) {
@@ -35,7 +36,7 @@ function Wallet() {
     useEffect(loadMnemonic, [])
 
     return (
-        <Stack spacing={2} sx={{
+        <Stack spacing={2} alignItems='center' sx={{
             width: '100vw',
             padding: {
                 xs: 3
@@ -60,9 +61,12 @@ function Wallet() {
                         setEthWall((prev) => [...prev, getEthWallet(seed!, prev.length)])
                     }} >Get ETH wallet</Button>
 
-                    <Button variant="contained" color="secondary" onClick={() => {
+                    <Button variant="contained" color="info" onClick={() => {
                         setSolWall((prev) => [...prev, getSolWallet(seed!, prev.length)])
                     }} >Get Sol wallet</Button>
+                    <Button variant="contained" color="secondary" onClick={() => {
+                        navigate("/")
+                    }} >Reset Mnemonic</Button>
                 </Box>  
             </Box>
             {

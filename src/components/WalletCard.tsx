@@ -24,8 +24,12 @@ export default function WalletCard({ wallet, chain } : {wallet : wallet, chain: 
     return (
         <Box display='flex' gap={2} flexDirection='column' sx={{
             padding: 3,
-            boxShadow: '0px 4px 12px #5555',
-            borderRadius: '16px'
+            boxShadow:  chain == "eth" ?  '0px 4px 12px #9f5fed' : '0px 4px 12px #5f9ded',
+            borderRadius: '16px',
+            width :{
+                lg: "700px",
+                xs: '100%'
+            }
         }}>
             <Typography variant="h2" sx={{
                 fontSize: {
@@ -37,23 +41,25 @@ export default function WalletCard({ wallet, chain } : {wallet : wallet, chain: 
             <DefaultCopyField label="Address" inputProps={{ maxLength: 12 }} value={wallet.address}/>
             <DefaultCopyField label="Public Key" inputProps={{ maxLength: 12 }} value={wallet.publicKey}/>
             <DefaultCopyField label="Private Key" inputProps={{ maxLength: 12 }} value={wallet.privateKey}/>
-            <Box display='flex' gap={1} alignItems='center'>
+            <Box display='flex' gap={1} alignItems='center' justifyContent='space-between'>
                 <Typography variant="h6">Balance: {bal} {chain}</Typography>
-                <Button  variant="outlined" color="info" onClick={async () => {
-                                setBal(await checkBal(wallet.address, chain))
-                            }}>
-                                <SyncRoundedIcon></SyncRoundedIcon>
-                </Button>
-                {
-                    chain == "sol" && 
-                    <Button disabled={loading} color={airDropBtn == airDropMsg ? "success" : "primary"} variant="contained" onClick={ async () => {
-                        setLoading(true)
-                        setAirDropBtn("....")
-                        await solDrop(wallet.address)
-                        setAirDropBtn(airDropMsg)
-                       setLoading(false)
-                    }}>{airDropBtn}</Button>
-                }
+                <Box display='flex' gap={1} alignItems='center'>
+                    <Button  variant="outlined" color="info" onClick={async () => {
+                                    setBal(await checkBal(wallet.address, chain))
+                                }}>
+                                    <SyncRoundedIcon></SyncRoundedIcon>
+                    </Button>
+                    {
+                        chain == "sol" && 
+                        <Button disabled={loading} color={airDropBtn == airDropMsg ? "success" : "primary"} variant="contained" onClick={ async () => {
+                            setLoading(true)
+                            setAirDropBtn("....")
+                            await solDrop(wallet.address)
+                            setAirDropBtn(airDropMsg)
+                        setLoading(false)
+                        }}>{airDropBtn}</Button>
+                    }
+                </Box>
             </Box>
             
 

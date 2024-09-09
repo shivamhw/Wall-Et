@@ -16,7 +16,7 @@ export async function getBal(address: string): Promise<string> {
 
 export async function airDrop(address: string) {
     console.log("started airdrop for solana")
-    const connection = new web3.Connection(backend, "finalized")
+    const connection = new web3.Connection(backend, "confirmed")
     const pubKey = new web3.PublicKey(address)
     const sign = await connection.requestAirdrop(pubKey, 1 * web3.LAMPORTS_PER_SOL)
     const latestHash = await connection.getLatestBlockhash()
