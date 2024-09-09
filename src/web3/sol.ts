@@ -5,7 +5,7 @@ import { wallet } from '../pages/Wallet';
 
 const backend = "https://solana-devnet.g.alchemy.com/v2/lW1iO6RZUsOO4-rypY3Yc3Fc1_3ko_I6"
 // const backend = "http://127.0.0.1:8899"
-const solRPC = web3.clusterApiUrl("devnet")
+// const solRPC = web3.clusterApiUrl("devnet")
 
 
 export async function getBal(address: string): Promise<string> {
@@ -16,7 +16,7 @@ export async function getBal(address: string): Promise<string> {
 
 export async function airDrop(address: string) {
     console.log("started airdrop for solana")
-    const connection = new web3.Connection(solRPC, "finalized")
+    const connection = new web3.Connection(backend, "finalized")
     const pubKey = new web3.PublicKey(address)
     const sign = await connection.requestAirdrop(pubKey, 1 * web3.LAMPORTS_PER_SOL)
     const latestHash = await connection.getLatestBlockhash()
