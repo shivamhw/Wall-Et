@@ -6,11 +6,10 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Routes>
-    <Route path="/" element={<Home/>}></Route>
-    <Route path="/wallet" element={<Wallet/>}></Route>
-    </Routes>
-    
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/wallet" element={<Wallet/>}></Route>
+      </Routes>
     </BrowserRouter>
   )
 }

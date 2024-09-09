@@ -6,7 +6,7 @@ import { getEthWallet } from "../web3/eth";
 import { getSolWallet } from "../web3/sol";
 import WalletCard from "../components/WalletCard";
 import { useNavigate } from "react-router-dom";
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 window.Buffer = window.Buffer || Buffer;
 
@@ -14,14 +14,14 @@ export interface wallet {
     privateKey: string
     publicKey: string
     address: string
+    chain?: string
 }
 
 
 function Wallet() {
     const [mnemonic, setMnemonic] = useState<string>()
     const [seed, setSeed] = useState<Buffer>()
-    const [ethWall, setEthWall] = useState<wallet[]>([])
-    const [solWall, setSolWall] = useState<wallet[]>([])
+    const [wall, setWall] = useState<wallet[]>([])
     const navigate = useNavigate()
     const loadMnemonic = () => {
         const val = localStorage.getItem('mnemonic')
@@ -37,7 +37,7 @@ function Wallet() {
 
     return (
         <Stack spacing={2} alignItems='center' sx={{
-            width: '100vw',
+            width: '99vw',
             padding: {
                 xs: 3
             }
@@ -46,7 +46,11 @@ function Wallet() {
             <Box display='flex' gap={2} flexDirection='column' sx={{
                 padding: 3,
                 boxShadow: '0px 4px 12px #5555',
-                borderRadius: '16px'
+                borderRadius: '16px',
+                width :{
+                    lg: "1000px",
+                    xs: '100%'
+                }
             }}>
                 <Typography variant="h2" sx={{
                     fontSize: {
@@ -55,28 +59,23 @@ function Wallet() {
                 }} >Your mnemonic is</Typography>
                 <Typography sx={{
                     fontFamily: "monospace"
-                }} variant="h5">{mnemonic}</Typography>
+                }} variant="h5">{mnemonic} <Button variant="contained" size="small"  color="secondary" onClick={() => {
+                    navigate("/")}}><DeleteForeverIcon/></Button></Typography>
+                
                 <Box display='flex' justifyContent='center' alignItems='center' gap={3}>
                     <Button variant="contained" onClick={() => {
-                        setEthWall((prev) => [...prev, getEthWallet(seed!, prev.length)])
+                        setWall((prev) => [...prev, {...getEthWallet(seed!, prev.length), chain: "eth"}])
                     }} >Get ETH wallet</Button>
 
                     <Button variant="contained" color="info" onClick={() => {
-                        setSolWall((prev) => [...prev, getSolWallet(seed!, prev.length)])
+                        setWall((prev) => [...prev, {...getSolWallet(seed!, prev.length), chain: "sol"}])
                     }} >Get Sol wallet</Button>
-                    <Button variant="contained" color="secondary" onClick={() => {
-                        navigate("/")
-                    }} >Reset Mnemonic</Button>
+
                 </Box>  
             </Box>
             {
-                ethWall.map((wall) => {
-                    return <WalletCard key={wall.address} chain="eth" wallet={wall}></WalletCard>
-                })
-            }
-            {
-                solWall.map((wall) => {
-                    return <WalletCard key={wall.address} chain="sol" wallet={wall}></WalletCard>
+                wall.map((wall) => {
+                    return <WalletCard key={wall.address} chain={wall.chain || "eth"} wallet={wall}></WalletCard>
                 })
             }
         </Stack>

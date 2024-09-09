@@ -41,5 +41,4 @@ export function getSolWallet(seed: Buffer, index: number): wallet {
         publicKey: keypair.publicKey.toString(),
         address: keypair.publicKey.toBase58()
     }
-
 }

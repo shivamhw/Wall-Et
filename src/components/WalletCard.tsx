@@ -29,8 +29,7 @@ export default function WalletCard({ wallet, chain } : {wallet : wallet, chain: 
             width :{
                 lg: "700px",
                 xs: '100%'
-            }
-        }}>
+            }}}>
             <Typography variant="h2" sx={{
                 fontSize: {
                     xs: 50
@@ -47,7 +46,7 @@ export default function WalletCard({ wallet, chain } : {wallet : wallet, chain: 
                     <Button  variant="outlined" color="info" onClick={async () => {
                                     setBal(await checkBal(wallet.address, chain))
                                 }}>
-                                    <SyncRoundedIcon></SyncRoundedIcon>
+                                    <SyncRoundedIcon/>
                     </Button>
                     {
                         chain == "sol" && 
@@ -56,13 +55,11 @@ export default function WalletCard({ wallet, chain } : {wallet : wallet, chain: 
                             setAirDropBtn("....")
                             await solDrop(wallet.address)
                             setAirDropBtn(airDropMsg)
-                        setLoading(false)
+                            setLoading(false)
                         }}>{airDropBtn}</Button>
                     }
                 </Box>
             </Box>
-            
-
         </Box>
     )
 }
