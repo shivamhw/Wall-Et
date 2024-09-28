@@ -1,10 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
-import { wallet } from '../pages/Wallet'
+import { wallet } from '../pages/GenWallets'
 import { getBal as ethBal } from '../web3/eth';
 import { getBal as solBal, airDrop as solDrop } from '../web3/sol';
-import { useState } from "react";
 import SyncRoundedIcon from '@mui/icons-material/SyncRounded';
 import { DefaultCopyField } from "@eisberg-labs/mui-copy-field";
+import { useState } from "react";
+import SaveWalletBtn from "./SaveWalletBtn";
 
 
 const airDropMsg = "Airdrop"
@@ -59,6 +60,10 @@ export default function WalletCard({ wallet, chain } : {wallet : wallet, chain: 
                         }}>{airDropBtn}</Button>
                     }
                 </Box>
+                { 
+                wallet.saved == true ? "delete" :   
+                    <SaveWalletBtn wallet={wallet}></SaveWalletBtn>
+            }
             </Box>
         </Box>
     )

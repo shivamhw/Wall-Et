@@ -1,6 +1,6 @@
 import { HDNodeWallet } from 'ethers/wallet'
 import web3 from 'web3'
-import { wallet } from '../pages/Wallet'
+import { wallet } from '../pages/GenWallets'
 const backend = "https://eth-sepolia.g.alchemy.com/v2/lW1iO6RZUsOO4-rypY3Yc3Fc1_3ko_I6"
 
 export async function getBal(address : string): Promise<string>{

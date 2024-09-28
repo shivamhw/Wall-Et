@@ -15,10 +15,11 @@ export interface wallet {
     publicKey: string
     address: string
     chain?: string
+    saved?: boolean
 }
 
 
-function Wallet() {
+function GenWallet() {
     const [mnemonic, setMnemonic] = useState<string>()
     const [seed, setSeed] = useState<Buffer>()
     const [wall, setWall] = useState<wallet[]>([])
@@ -56,7 +57,7 @@ function Wallet() {
                     fontSize: {
                         xs: 50
                     }
-                }} >Your mnemonic is</Typography>
+                }} >Your mnemonic is { mnemonic == null && "not set"}</Typography>
                 <Typography sx={{
                     fontFamily: "monospace"
                 }} variant="h5">{mnemonic} <Button variant="contained" size="small"  color="secondary" onClick={() => {
@@ -64,11 +65,11 @@ function Wallet() {
                 
                 <Box display='flex' justifyContent='center' alignItems='center' gap={3}>
                     <Button variant="contained" onClick={() => {
-                        setWall((prev) => [...prev, {...getEthWallet(seed!, prev.length), chain: "eth"}])
+                        setWall((prev) => [...prev, {...getEthWallet(seed!, prev.length), chain: "eth", saved: false}])
                     }} >Get ETH wallet</Button>
 
                     <Button variant="contained" color="info" onClick={() => {
-                        setWall((prev) => [...prev, {...getSolWallet(seed!, prev.length), chain: "sol"}])
+                        setWall((prev) => [...prev, {...getSolWallet(seed!, prev.length), chain: "sol", saved: false}])
                     }} >Get Sol wallet</Button>
 
                 </Box>  
@@ -81,4 +82,4 @@ function Wallet() {
         </Stack>
     )
 }
-export default Wallet
+export default GenWallet

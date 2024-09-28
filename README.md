@@ -1,50 +1,17 @@
-# React + TypeScript + Vite
+# Wall-Et 
+A web implementation of a solana and eth wallets.
+This wallet supports
+- Creation and management of solana and eth wallets/keys
+- Get airdrop in generated solana wallets
+- Explore token owned by a solana wallet
+- Create and launch new tokens on solana blockchain
+- Send and recieve sol and eth 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# How to run
+Just run it as a any react application.
+1. clone the repo to your local branch
+2. change the backend alchemy url present in web3/sol.ts and eth.ts
+3. run ``` npm run dev ``` in the root directory
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Note: this web implemention should only be used as a learning medium for above transactions and how they work under the hood. This should not be used to manage your personal private keys as because this is a web app, its less secure than the extension based wallets. 

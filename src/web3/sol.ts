@@ -1,7 +1,7 @@
 import * as web3 from '@solana/web3.js'
 import { Keypair } from '@solana/web3.js';
 import { HDKey } from 'micro-ed25519-hdkey';
-import { wallet } from '../pages/Wallet';
+import { wallet } from '../pages/GenWallets';
 
 const backend = "https://solana-devnet.g.alchemy.com/v2/lW1iO6RZUsOO4-rypY3Yc3Fc1_3ko_I6"
 // const backend = "http://127.0.0.1:8899"

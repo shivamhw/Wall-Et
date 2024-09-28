@@ -1,6 +1,7 @@
 import Home from './pages/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Wallet from './pages/Wallet';
+import GenWallet from './pages/GenWallets';
+import MyWallets from './pages/MyWallets';
 
 function App() {
 
@@ -8,7 +9,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}></Route>
-        <Route path="/wallet" element={<Wallet/>}></Route>
+        <Route path="/gen-wallets" element={<GenWallet/>}></Route>
+        <Route path="/my-wallets" element={<MyWallets/>}></Route>
       </Routes>
     </BrowserRouter>
   )

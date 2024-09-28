@@ -18,7 +18,6 @@ function Home() {
     console.log("mnemonic set")
     setMn(mnemonic)
   }
-
   return (
       <Stack spacing={2} sx={{
         width: '100vw',
@@ -38,7 +37,9 @@ function Home() {
         {mn && <Mnemonic mnemonic={mn!}></Mnemonic>}
           <Box display='flex' gap={3}>
             <Button size='large' variant='contained' onClick={getMn}>Generate Secret</Button>
-            {mn && <Button size='large' variant='contained' color='secondary' onClick={()=> navigate("/wallet")}>Generate Wallets</Button>}
+            {mn && <Button size='large' variant='contained' color='secondary' onClick={()=> navigate("/gen-wallets")}>Generate Wallets</Button>}
+            { localStorage.getItem("wallets") != null && <Button size='large' variant='contained' color='info' onClick={()=> navigate("/my-wallets")}>Saved Wallets</Button>}
+
           </Box>
         </Box>
       </Stack>
